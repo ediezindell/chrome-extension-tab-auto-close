@@ -1,4 +1,3 @@
-
 import type { PlasmoCSConfig } from "plasmo"
 
 // このコンテントスクリプトをFigmaのページでのみ動作させる
@@ -7,26 +6,23 @@ export const config: PlasmoCSConfig = {
 }
 
 const FIGMA_REDIRECT_TEXT = "Figmaアプリで開きました"
-const TIMEOUT_MS = 5000 // 5秒
+const POLLING_INTERVAL_MS = 200 // 0.2秒ごとにチェック
+const TIMEOUT_MS = 5000 // 5秒でタイムアウト
 
 const main = () => {
-  const observer = new MutationObserver((mutations, obs) => {
+  const intervalId = setInterval(() => {
     const bodyText = document.body.innerText
     if (bodyText.includes(FIGMA_REDIRECT_TEXT)) {
+      // テキストを見つけたら、タブを閉じるメッセージを送信してインターバルを停止
       chrome.runtime.sendMessage({ action: "closeTab" })
-      obs.disconnect()
+      clearInterval(intervalId)
     }
-  })
+  }, POLLING_INTERVAL_MS)
 
-  observer.observe(document.body, { childList: true, subtree: true })
-
-  setTimeout(() => observer.disconnect(), TIMEOUT_MS)
-
-  // 初期状態で既にテキストが存在する場合もチェック
-  if (document.body.innerText.includes(FIGMA_REDIRECT_TEXT)) {
-    chrome.runtime.sendMessage({ action: "closeTab" })
-    observer.disconnect()
-  }
+  // タイムアウトを設定して、一定時間後にインターバルを確実に停止させる
+  setTimeout(() => {
+    clearInterval(intervalId)
+  }, TIMEOUT_MS)
 }
 
 // 最初に設定を読み込み、機能が有効な場合のみmain()を実行
