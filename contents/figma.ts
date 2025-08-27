@@ -1,4 +1,6 @@
+
 import type { PlasmoCSConfig } from "plasmo"
+import { POLLING_INTERVAL_MS, TIMEOUT_MS } from "~/lib/constants"
 
 // このコンテントスクリプトをFigmaのページでのみ動作させる
 export const config: PlasmoCSConfig = {
@@ -6,8 +8,6 @@ export const config: PlasmoCSConfig = {
 }
 
 const FIGMA_REDIRECT_TEXT = "Figmaアプリで開きました"
-const POLLING_INTERVAL_MS = 200 // 0.2秒ごとにチェック
-const TIMEOUT_MS = 5000 // 5秒でタイムアウト
 
 const main = () => {
   const intervalId = setInterval(() => {
