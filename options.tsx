@@ -42,7 +42,6 @@ function Options() {
             type="checkbox"
             checked={settings.figma}
             onChange={() => handleToggle("figma")}
-            disabled
           />
         </label>
       </div>
