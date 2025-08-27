@@ -1,5 +1,5 @@
 
-import { useStorage } from "@plasmohq/storage"
+import { useStorage } from "@plasmohq/storage/hook"
 import React from "react"
 
 // 設定の型定義
