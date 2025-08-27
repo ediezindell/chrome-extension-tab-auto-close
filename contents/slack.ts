@@ -2,7 +2,7 @@ import type { PlasmoCSConfig } from "plasmo"
 
 // このコンテントスクリプトをSlackのページでのみ動作させる
 export const config: PlasmoCSConfig = {
-  matches: ["https://app.slack.com/*"]
+  matches: ["*://*.slack.com/*"]
 }
 
 const SLACK_REDIRECT_TEXT = "デスクトップアプリにリダイレクトしました"
