@@ -37,7 +37,7 @@ function Options() {
       </div>
       <div style={{ marginTop: "10px" }}>
         <label style={{ display: "flex", alignItems: "center", justifyContent: "space-between", fontSize: "16px" }}>
-          <span>Figma (coming soon)</span>
+          <span>Figma</span>
           <input
             type="checkbox"
             checked={settings.figma}
