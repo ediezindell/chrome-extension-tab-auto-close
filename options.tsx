@@ -6,6 +6,7 @@ import React from "react"
 interface AppSettings {
   slack: boolean
   figma: boolean
+  teams: boolean
 }
 
 function Options() {
@@ -13,7 +14,7 @@ function Options() {
   // 第一引数: ストレージのキー
   // 第二引数: 初期値
   const [settings, setSettings] = useStorage<AppSettings>("appSettings", (v) =>
-    v === undefined ? { slack: true, figma: true } : v
+    v === undefined ? { slack: true, figma: true, teams: true } : v
   )
 
   // トグル操作時の処理
@@ -42,6 +43,16 @@ function Options() {
             type="checkbox"
             checked={settings.figma}
             onChange={() => handleToggle("figma")}
+          />
+        </label>
+      </div>
+      <div style={{ marginTop: "10px" }}>
+        <label style={{ display: "flex", alignItems: "center", justifyContent: "space-between", fontSize: "16px" }}>
+          <span>Microsoft Teams</span>
+          <input
+            type="checkbox"
+            checked={settings.teams}
+            onChange={() => handleToggle("teams")}
           />
         </label>
       </div>
