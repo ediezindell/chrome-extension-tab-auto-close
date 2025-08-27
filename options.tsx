@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from "react"
+
+import { useStorage } from "@plasmohq/storage"
+import React from "react"
 
 // 設定の型定義
 interface AppSettings {
@@ -7,22 +9,16 @@ interface AppSettings {
 }
 
 function Options() {
-  const [settings, setSettings] = useState<AppSettings>({ slack: true, figma: false })
+  // useStorageフックで設定を管理
+  // 第一引数: ストレージのキー
+  // 第二引数: 初期値
+  const [settings, setSettings] = useStorage<AppSettings>("appSettings", (v) =>
+    v === undefined ? { slack: true, figma: false } : v
+  )
 
-  // 起動時にストレージから設定を読み込む
-  useEffect(() => {
-    chrome.storage.sync.get("appSettings", (data) => {
-      if (data.appSettings) {
-        setSettings(data.appSettings)
-      }
-    })
-  }, [])
-
-  // 設定が変更されたらストレージに保存
+  // トグル操作時の処理
   const handleToggle = (app: keyof AppSettings) => {
-    const newSettings = { ...settings, [app]: !settings[app] }
-    setSettings(newSettings)
-    chrome.storage.sync.set({ appSettings: newSettings })
+    setSettings({ ...settings, [app]: !settings[app] })
   }
 
   return (
