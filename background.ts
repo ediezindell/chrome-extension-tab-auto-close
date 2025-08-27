@@ -4,7 +4,7 @@
 // 拡張機能インストール時の初期設定
 chrome.runtime.onInstalled.addListener(() => {
   // デフォルトでSlackは有効、Figmaは無効に
-  chrome.storage.sync.set({ appSettings: { slack: true, figma: false } });
+  chrome.storage.sync.set({ appSettings: { slack: true, figma: true } });
 });
 
 // 拡張機能アイコンクリックでオプションページを開く

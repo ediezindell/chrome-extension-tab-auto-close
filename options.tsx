@@ -13,7 +13,7 @@ function Options() {
   // 第一引数: ストレージのキー
   // 第二引数: 初期値
   const [settings, setSettings] = useStorage<AppSettings>("appSettings", (v) =>
-    v === undefined ? { slack: true, figma: false } : v
+    v === undefined ? { slack: true, figma: true } : v
   )
 
   // トグル操作時の処理
