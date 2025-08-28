@@ -7,12 +7,16 @@ export const config: PlasmoCSConfig = {
   matches: ["*://*.figma.com/*"]
 }
 
-const FIGMA_REDIRECT_TEXT = "Figmaアプリで開きました"
+const FIGMA_REDIRECT_TEXT_JP = "Figmaアプリで開きました"
+const FIGMA_REDIRECT_TEXT_EN_REGEX = /Opened ".*" in the Figma app/
 
 const main = () => {
   const intervalId = setInterval(() => {
     const bodyText = document.body.innerText
-    if (bodyText.includes(FIGMA_REDIRECT_TEXT)) {
+    if (
+      bodyText.includes(FIGMA_REDIRECT_TEXT_JP) ||
+      FIGMA_REDIRECT_TEXT_EN_REGEX.test(bodyText)
+    ) {
       // テキストを見つけたら、タブを閉じるメッセージを送信してインターバルを停止
       chrome.runtime.sendMessage({ action: "closeTab" })
       clearInterval(intervalId)
