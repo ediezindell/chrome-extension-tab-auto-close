@@ -1,8 +1,8 @@
 {
-  "name": "auto-close-tab-in-opened-app",
-  "displayName": "Auto close tab in opened app",
-  "version": "0.0.1",
-  "description": "auto close tab",
+  "name": "Tab Auto Close",
+  "displayName": "Tab Auto Close",
+  "version": "0.1.0",
+  "description": "Automatically closes browser tabs when external desktop apps.",
   "author": "ediezindell",
   "scripts": {
     "dev": "plasmo dev",
@@ -31,5 +31,6 @@
     "permissions": [
       "storage"
     ]
-  }
+  },
+  "packageManager": "pnpm@10.15.0"
 }
