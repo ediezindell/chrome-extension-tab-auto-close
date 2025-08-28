@@ -6,12 +6,15 @@ export const config: PlasmoCSConfig = {
   matches: ["*://*.slack.com/*"]
 }
 
-const SLACK_REDIRECT_TEXT = "デスクトップアプリにリダイレクトしました"
+const SLACK_REDIRECT_TEXTS = [
+  "デスクトップアプリにリダイレクトしました",
+  "Redirecting to the Slack desktop app"
+]
 
 const main = () => {
   const intervalId = setInterval(() => {
     const bodyText = document.body.innerText
-    if (bodyText.includes(SLACK_REDIRECT_TEXT)) {
+    if (SLACK_REDIRECT_TEXTS.some((text) => bodyText.includes(text))) {
       // テキストを見つけたら、タブを閉じるメッセージを送信してインターバルを停止
       chrome.runtime.sendMessage({ action: "closeTab" })
       clearInterval(intervalId)
