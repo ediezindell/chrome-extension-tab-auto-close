@@ -7,12 +7,15 @@ export const config: PlasmoCSConfig = {
   matches: ["*://teams.microsoft.com/*"]
 }
 
-const TEAMS_REDIRECT_TEXT = "Teams 会議に参加"
+const TEAMS_REDIRECT_TEXTS = [
+  "Teams 会議に参加",
+  "Join your Microsoft Teams Meeting"
+]
 
 const main = () => {
   const intervalId = setInterval(() => {
     const bodyText = document.body.innerText
-    if (bodyText.includes(TEAMS_REDIRECT_TEXT)) {
+    if (TEAMS_REDIRECT_TEXTS.some((text) => bodyText.includes(text))) {
       // テキストを見つけたら、タブを閉じるメッセージを送信してインターバルを停止
       chrome.runtime.sendMessage({ action: "closeTab" })
       clearInterval(intervalId)
