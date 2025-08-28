@@ -1,0 +1,62 @@
+name: release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+env:
+  NODE_VERSION: "20.x"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set variables
+        id: vars
+        run: |
+          echo "REPOSITORY_NAME=${GITHUB_REPOSITORY#${GITHUB_REPOSITORY_OWNER}/}" >> $GITHUB_ENV
+          TAG_NAME=${GITHUB_REF#refs/tags/}
+          echo "TAG_NAME=${TAG_NAME}" >> $GITHUB_ENV
+      - uses: actions/checkout@v4
+      - run: corepack enable
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: "pnpm"
+      - name: pnpm install, build
+        run: |
+          pnpm i
+          pnpm build
+      - name: Upload artifact for deployment job
+        uses: actions/upload-artifact@v4
+        with:
+          name: node-app
+          path: .
+      - name: Zip output
+        run: |
+          cd build
+          ZIP_NAME=${{ env.REPOSITORY_NAME }}_${{ env.TAG_NAME }}
+          mv chrome-mv3-prod $ZIP_NAME
+          zip -r ${ZIP_NAME}.zip $ZIP_NAME
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ env.TAG_NAME }}
+          release_name: Release ${{ env.TAG_NAME }}
+          draft: false
+          prerelease: false
+      - name: Upload Release Asset
+        id: upload-release-asset
+        uses: actions/upload-release-asset@v1.0.1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./build/${{ env.REPOSITORY_NAME }}_${{ env.TAG_NAME }}.zip
+          asset_name: ${{ env.REPOSITORY_NAME }}_${{ env.TAG_NAME }}.zip
+          asset_content_type: application/zip
