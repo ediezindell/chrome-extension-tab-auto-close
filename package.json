@@ -1,7 +1,7 @@
 {
   "name": "Tab Auto Close",
   "displayName": "Tab Auto Close",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Automatically closes browser tabs when external desktop apps.",
   "author": "ediezindell",
   "scripts": {
