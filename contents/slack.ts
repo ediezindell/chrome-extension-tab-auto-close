@@ -8,7 +8,7 @@ export const config: PlasmoCSConfig = {
 
 const SLACK_REDIRECT_TEXTS = [
   "デスクトップアプリにリダイレクトしました",
-  "Redirecting to the Slack desktop app"
+  "We’ve redirected you to the desktop app."
 ]
 
 const main = () => {

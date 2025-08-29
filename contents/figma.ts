@@ -8,7 +8,7 @@ export const config: PlasmoCSConfig = {
 }
 
 const FIGMA_REDIRECT_TEXT_JP = "Figmaアプリで開きました"
-const FIGMA_REDIRECT_TEXT_EN_REGEX = /Opened ".*" in the Figma app/
+const FIGMA_REDIRECT_TEXT_EN_REGEX = /Opened “.*” in Figma app/
 
 const main = () => {
   const intervalId = setInterval(() => {
