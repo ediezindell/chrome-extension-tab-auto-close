@@ -1,0 +1,31 @@
+{
+  "manifest_version": 3,
+  "name": "Tab Auto Close",
+  "version": "0.1.1",
+  "description": "Automatically closes browser tabs when external desktop apps.",
+  "permissions": ["storage"],
+  "action": {
+    "default_title": "Tab Auto Close"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["*://*.slack.com/*"],
+      "js": ["content_slack.js"]
+    },
+    {
+      "matches": ["*://*.figma.com/*"],
+      "js": ["content_figma.js"]
+    },
+    {
+      "matches": ["*://teams.microsoft.com/*"],
+      "js": ["content_teams.js"]
+    }
+  ],
+  "options_page": "options.html",
+  "icons": {
+    "128": "assets/icon.png"
+  }
+}
