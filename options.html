@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Auto Close Tab Settings</title>
+  <style>
+    body {
+      padding: 20px;
+      width: 300px;
+      font-family: sans-serif;
+    }
+    h1 {
+      font-size: 1.5em;
+    }
+    .setting-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 16px;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Auto Close Tab Settings</h1>
+  <p>Select which applications should have their tabs closed automatically.</p>
+
+  <div class="setting-item">
+    <label for="slack">Slack</label>
+    <input type="checkbox" id="slack">
+  </div>
+
+  <div class="setting-item">
+    <label for="figma">Figma</label>
+    <input type="checkbox" id="figma">
+  </div>
+
+  <div class="setting-item">
+    <label for="teams">Microsoft Teams</label>
+    <input type="checkbox" id="teams">
+  </div>
+
+  <script src="options.js"></script>
+</body>
+</html>

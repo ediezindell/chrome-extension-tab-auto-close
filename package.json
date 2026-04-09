@@ -1,36 +1,9 @@
 {
-  "name": "Tab Auto Close",
-  "displayName": "Tab Auto Close",
+  "name": "tab-auto-close",
   "version": "0.1.1",
   "description": "Automatically closes browser tabs when external desktop apps.",
-  "author": "ediezindell",
   "scripts": {
-    "dev": "plasmo dev",
-    "build": "plasmo build",
-    "package": "plasmo package"
+    "package": "zip -r extension.zip manifest.json background.js content_slack.js content_figma.js content_teams.js options.html options.js assets/"
   },
-  "dependencies": {
-    "@plasmohq/storage": "^1.15.0",
-    "plasmo": "^0.90.5",
-    "react": "19.2.5",
-    "react-dom": "19.2.5"
-  },
-  "devDependencies": {
-    "@ianvs/prettier-plugin-sort-imports": "4.7.1",
-    "@types/chrome": "0.1.40",
-    "@types/node": "25.5.2",
-    "@types/react": "19.2.14",
-    "@types/react-dom": "19.2.3",
-    "prettier": "3.8.1",
-    "typescript": "6.0.2"
-  },
-  "manifest": {
-    "host_permissions": [
-      "https://*/*"
-    ],
-    "permissions": [
-      "storage"
-    ]
-  },
-  "packageManager": "pnpm@10.15.0"
+  "author": "ediezindell"
 }

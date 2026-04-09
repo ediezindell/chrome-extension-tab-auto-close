@@ -5,9 +5,6 @@ on:
     tags:
       - "v*"
 
-env:
-  NODE_VERSION: "24.x"
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -19,27 +16,10 @@ jobs:
           TAG_NAME=${GITHUB_REF#refs/tags/}
           echo "TAG_NAME=${TAG_NAME}" >> $GITHUB_ENV
       - uses: actions/checkout@v4
-      - run: corepack enable
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-          cache: "pnpm"
-      - name: pnpm install, build
+      - name: Zip extension
         run: |
-          pnpm i
-          pnpm build
-      - name: Upload artifact for deployment job
-        uses: actions/upload-artifact@v4
-        with:
-          name: node-app
-          path: .
-      - name: Zip output
-        run: |
-          cd build
-          ZIP_NAME=${{ env.REPOSITORY_NAME }}_${{ env.TAG_NAME }}
-          mv chrome-mv3-prod $ZIP_NAME
-          zip -r ${ZIP_NAME}.zip $ZIP_NAME
+          ZIP_NAME=${{ env.REPOSITORY_NAME }}_${{ env.TAG_NAME }}.zip
+          zip -r $ZIP_NAME manifest.json background.js content_slack.js content_figma.js content_teams.js options.html options.js assets/
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
@@ -57,6 +37,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./build/${{ env.REPOSITORY_NAME }}_${{ env.TAG_NAME }}.zip
+          asset_path: ./${{ env.REPOSITORY_NAME }}_${{ env.TAG_NAME }}.zip
           asset_name: ${{ env.REPOSITORY_NAME }}_${{ env.TAG_NAME }}.zip
           asset_content_type: application/zip
